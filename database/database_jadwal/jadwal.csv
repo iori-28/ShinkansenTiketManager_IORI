@@ -1,0 +1,7 @@
+id_jadwal,asal,tujuan,waktu_berangkat,waktu_tiba,jenis_kereta,harga,kursi_tersedia
+J001,Tokyo,Osaka,6/30/2025 8:00,6/30/2025 10:30,Nozomi,13000,120
+J002,Osaka,Hakata,7/1/2025 8:00,7/1/2025 10:30,Hikari,20000,97
+J003,Tokyo,Shin-Aomori,7/2/2025 8:00,7/2/2025 10:30,Kodama,15000,86
+J004,?miya,Niigata,7/3/2025 8:00,7/3/2025 10:30,Sakura,10000,59
+J005,Takasaki,Tsuruga,7/2/2025 8:00,7/2/2025 10:30,Mizuho,25000,91
+J006,Hakata,Kagoshima-Ch??,6/30/2025 8:00,6/30/2025 10:30,Kagayaki,30000,102
