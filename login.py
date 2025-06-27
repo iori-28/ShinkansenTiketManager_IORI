@@ -6,7 +6,7 @@ from fitur5 import laporan
 from fitur6 import refund
 
 # Simulasi password admin (bisa kamu kembangkan nanti)
-ADMIN_PASSWORD = "admin123"
+ADMIN_PASSWORD = "8948!"
 
 def admin_menu():
     while True:
@@ -56,11 +56,11 @@ def consumer_menu():
 
 def login_menu():
     while True:
-        print("\n==== APLIKASI PEMESANAN TIKET SHINKANSEN ====")
+        print("\n==== SHINKs APP ====")
         print("1. Masuk sebagai Admin")
         print("2. Masuk sebagai Consumer")
         print("0. Keluar")
-        pilihan = input("Pilih peran: ")
+        pilihan = input("Pilih: ")
 
         if pilihan == '1':
             pwd = input("Masukkan password admin: ")
