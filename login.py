@@ -19,13 +19,13 @@ def admin_menu():
         pilihan = input("Pilih menu: ")
 
         if pilihan == '1':
-            jadwal.menu_jadwal()
+            jadwal.jadwal_admin()
         elif pilihan == '2':
-            laporan.menu_laporan()
+            laporan.laporan_admin()
         elif pilihan == '3':
-            penumpang.menu_penumpang()
+            penumpang.penumpang_admin()
         elif pilihan == '4':
-            refund.menu_lihat_refund()
+            refund.refund_admin()
         elif pilihan == '0':
             break
         else:
@@ -42,13 +42,13 @@ def consumer_menu():
         pilihan = input("Pilih menu: ")
 
         if pilihan == '1':
-            jadwal.tampilkan_jadwal()
+            jadwal.jadwal_consumer()
         elif pilihan == '2':
-            filter.menu_filter()
+            filter.filter_consumer()
         elif pilihan == '3':
-            pemesanan.menu_pemesanan()
+            pemesanan.pemesanan_consumer()
         elif pilihan == '4':
-            refund.menu_refund()
+            refund.refund_consumer()
         elif pilihan == '0':
             break
         else:
@@ -73,7 +73,7 @@ def login_menu():
             print("Login Consumer berhasil!\n")
             consumer_menu()
         elif pilihan == '0':
-            print("Terima kasih sudah menggunakan aplikasi ini!")
+            print("Terima kasih sudah menggunakan SHINKs APP!")
             break
         else:
             print("Pilihan tidak valid. Silakan coba lagi.")
