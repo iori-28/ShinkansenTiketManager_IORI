@@ -5,7 +5,6 @@ from fitur4 import penumpang
 from fitur5 import laporan
 from fitur6 import refund
 
-# Simulasi password admin (bisa kamu kembangkan nanti)
 ADMIN_PASSWORD = "8948!"
 
 def admin_menu():
@@ -31,9 +30,9 @@ def admin_menu():
         else:
             print("Pilihan tidak valid!")
 
-def consumer_menu():
+def user_menu():
     while True:
-        print("\n=== MENU CONSUMER ===")
+        print("\n=== MENU USER ===")
         print("1. Lihat Jadwal")
         print("2. Pencarian & Filter Jadwal")
         print("3. Pesan Tiket")
@@ -42,13 +41,13 @@ def consumer_menu():
         pilihan = input("Pilih menu: ")
 
         if pilihan == '1':
-            jadwal.jadwal_consumer()
+            jadwal.jadwal_user()
         elif pilihan == '2':
-            filter.filter_consumer()
+            filter.filter_user()
         elif pilihan == '3':
-            pemesanan.pemesanan_consumer()
+            pemesanan.pemesanan_user()
         elif pilihan == '4':
-            refund.refund_consumer()
+            refund.refund_user()
         elif pilihan == '0':
             break
         else:
@@ -70,8 +69,8 @@ def login_menu():
             else:
                 print("Password salah! Akses ditolak.")
         elif pilihan == '2':
-            print("Login Consumer berhasil!\n")
-            consumer_menu()
+            print("Login User berhasil!\n")
+            user_menu()
         elif pilihan == '0':
             print("Terima kasih sudah menggunakan SHINKs APP!")
             break
