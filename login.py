@@ -57,7 +57,7 @@ def login_menu():
     while True:
         print("\n==== SHINKs APP ====")
         print("1. Masuk sebagai Admin")
-        print("2. Masuk sebagai Consumer")
+        print("2. Masuk sebagai User")
         print("0. Keluar")
         pilihan = input("Pilih: ")
 
