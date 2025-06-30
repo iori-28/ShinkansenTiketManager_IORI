@@ -4,27 +4,27 @@ from utils.fieldnames import fieldnames_jadwal, fieldnames_terhapus
 from utils.helper import batal_input
 
 
-# menu jadwal for admin
+# fungsi managemen jadwal admin
 def jadwal_admin():
     while True:
         print("\n=== MANAGEMEN JADWAL ===")
         print("1. Lihat jadwal")
-        print("2. Edit Jadwal")
+        print("2. Update Jadwal")
         print("0. Kembali ke Menu Admin")
         pilihan = input("Pilih Menu: ")
         if pilihan == '1':
             lihat_jadwal()
         elif pilihan == '2':
-            edit_jadwal()
+            update_jadwal()
         elif pilihan == '0':
             break
         else:
             print("Pilihan tidak valid!")
 
-# menu edit jadwal
-def edit_jadwal():
+# menu update jadwal
+def update_jadwal():
     while True:
-        print("\n=== EDIT JADWAL ===")
+        print("\n=== UPDATE JADWAL ===")
         print("1. Tambah Jadwal")
         print("2. Hapus Jadwal")
         print("3. Pulihkan Jadwal")
@@ -60,12 +60,13 @@ def tambah_jadwal():
         if id_sudah_ada:
             print(f"[!] ID {id_baru} sudah terdaftar. Coba masukkan ID lain.")
         else:
-            break  # ID valid, keluar dari loop
+            break  # ngecek ID, kalo valid bakal keluar dari loop
     
     asal = input("Stasiun Asal: ")
     if batal_input(asal): return
     tujuan = input("Stasiun Tujuan: ")
     if batal_input(tujuan): return
+    # banyak if batal_input() incase si admin gajadi tambah jadwal
 
     # validasi input waktu berangkat
     while True:
@@ -91,13 +92,14 @@ def tambah_jadwal():
             print("[!] Format waktu salah. Coba lagi, contoh: 06/30/2025 10:30")
 
 
-    # Ubah ke format string standar untuk disimpan
+    # Diubah ubah format waktunya dari datetime ke string supaya bisa disimpan di CSV
     waktu_berangkat_str = waktu_berangkat.strftime("%Y-%m-%d %H:%M")
     waktu_tiba_str = waktu_tiba.strftime("%Y-%m-%d %H:%M")
     
     jenis_kereta = input("Jenis Kereta: ")
+    if batal_input(jenis_kereta): return
     
-    # limit dan minimal harga
+    # (incase si admin kelebihan input) limit dan minimal harga
     while True:
         harga = input("Harga Tiket: ")
         if batal_input(harga): return
@@ -108,7 +110,7 @@ def tambah_jadwal():
             else:
                 break
     
-    # validasi kursi
+    # (incase si admin iseng nambahin negatif atau yang lainnya) validasi kursi 
     while True:
         kursi_tersedia = input("Jumlah Kursi Tersedia: ")
         if batal_input(kursi_tersedia): return
@@ -118,6 +120,7 @@ def tambah_jadwal():
         else:
             print("[!] Jumlah kursi harus berupa angka positif. Coba lagi.")
 
+    # Buat data baru untuk jadwal
     data_baru = {
         "id_jadwal": id_baru,
         "asal": asal,
@@ -150,9 +153,11 @@ def hapus_jadwal():
         id_input = input("ID yang ingin dihapus: ")
         if batal_input(id_input): return
 
+        # biar input id bisa lebih dari satu
         ids_hapus = [id.strip() for id in id_input.split(",")]
         id_ada = [row["id_jadwal"] for row in data]
 
+        # Validasi ID yang ada di data
         id_valid = [id for id in ids_hapus if id in id_ada]
         id_invalid = [id for id in ids_hapus if id not in id_ada]
 
@@ -274,3 +279,4 @@ def jadwal_user():
         for row in data_nonaktif:
             print(f"[Dihapus] {row['id_jadwal']} | {row['asal']} → {row['tujuan']} | "
                 f"{row['waktu_berangkat']} - {row['waktu_tiba']} | {row['jenis_kereta']} | Dihapus pada: {row.get('dihapus_pada','-')}")
+

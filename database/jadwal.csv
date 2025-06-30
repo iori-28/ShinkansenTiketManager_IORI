@@ -1,3 +1,4 @@
 id_jadwal,asal,tujuan,waktu_berangkat,waktu_tiba,jenis_kereta,harga,kursi_tersedia
 J003,Tokyo,Shin-Aomori,7/2/2025 8:00,7/2/2025 10:30,Kodama,15000,86
 J005,Kyoto,Tokyo,2025-12-11 22:00,2025-12-12 04:00,Sakura,3000,202
+J004,Karawang,Kyoto,2025-06-30 10:22,2025-06-30 10:30,SHINKAWOOSH,100000,1

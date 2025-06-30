@@ -7,6 +7,7 @@ from fitur6 import refund
 
 ADMIN_PASSWORD = "8948!"
 
+# fungsi buat jadi admin
 def admin_menu():
     while True:
         print("\n=== MENU ADMIN ===")
@@ -30,6 +31,7 @@ def admin_menu():
         else:
             print("Pilihan tidak valid!")
 
+# fungsi buat jadi user
 def user_menu():
     while True:
         print("\n=== MENU USER ===")
@@ -53,6 +55,8 @@ def user_menu():
         else:
             print("Pilihan tidak valid!")
 
+# fungsi login jadi admin atau user
+# ini yang pertama kali dijalankan
 def login_menu():
     while True:
         print("\n==== SHINKs APP ====")
