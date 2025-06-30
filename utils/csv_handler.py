@@ -22,11 +22,14 @@ def tulis_csv(nama_file, data, fieldnames):
         writer.writerows(data)
 
 def tambah_csv(nama_file, data_baru, fieldnames):
-    file_path = full_path(nama_file)
+    file_path = full_path(nama_file)  # ← INI YANG KURANG
     file_exists = os.path.exists(file_path)
 
     with open(file_path, mode='a', newline='', encoding='utf-8') as file:
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         if not file_exists:
             writer.writeheader()
-        writer.writerow(data_baru)
+        if isinstance(data_baru, list):
+            writer.writerows(data_baru)
+        else:
+            writer.writerow(data_baru)

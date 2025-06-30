@@ -1,5 +1,8 @@
 from utils import csv_handler
 from datetime import datetime
+from utils.fieldnames import fieldnames_jadwal, fieldnames_terhapus
+from utils.helper import batal_input
+
 
 # menu jadwal for admin
 def jadwal_admin():
@@ -35,7 +38,6 @@ def edit_jadwal():
             lihat_jadwal()
             hapus_jadwal()
         elif pilih == '3':
-            lihat_jadwal()
             restore_jadwal()
         elif pilih == '0':
             break
@@ -44,7 +46,7 @@ def edit_jadwal():
 
 # menu tambah jadwal
 def tambah_jadwal():
-    print("\n=== TAMBAH JADWAL BARU ===")
+    print("\n=== TAMBAH JADWAL ===")
     data = csv_handler.baca_csv("jadwal.csv")
     
     print("Ketik 0 kapan saja untuk membatalkan proses.")
@@ -52,9 +54,7 @@ def tambah_jadwal():
     # validasi id_jadwal
     while True:
         id_baru = input("ID Jadwal (misal J001): ")
-        if id_baru == "0":
-            print("Tambah jadwal dibatalkan.")
-            return
+        if batal_input(id_baru): return
        
         id_sudah_ada = any(row["id_jadwal"] == id_baru for row in data)
         if id_sudah_ada:
@@ -63,11 +63,14 @@ def tambah_jadwal():
             break  # ID valid, keluar dari loop
     
     asal = input("Stasiun Asal: ")
+    if batal_input(asal): return
     tujuan = input("Stasiun Tujuan: ")
+    if batal_input(tujuan): return
 
     # validasi input waktu berangkat
     while True:
         waktu_berangkat_input = input("Waktu Berangkat (format: MM/DD/YYYY HH:MM): ")
+        if batal_input(waktu_berangkat_input): return
         try:
             waktu_berangkat = datetime.strptime(waktu_berangkat_input, "%m/%d/%Y %H:%M")
             break  # Keluar loop kalau formatnya benar
@@ -77,6 +80,7 @@ def tambah_jadwal():
     # validasi input waktu tiba
     while True:
         waktu_tiba_input = input("Waktu Tiba (format: MM/DD/YYYY HH:MM): ")
+        if batal_input(waktu_tiba_input): return
         try:
             waktu_tiba = datetime.strptime(waktu_tiba_input, "%m/%d/%Y %H:%M")
             if waktu_tiba <= waktu_berangkat:
@@ -96,6 +100,7 @@ def tambah_jadwal():
     # limit dan minimal harga
     while True:
         harga = input("Harga Tiket: ")
+        if batal_input(harga): return
         if harga.isdigit() and int(harga) > 0:
             harga = int(harga)
             if harga < 500 or harga > 100000:
@@ -106,6 +111,7 @@ def tambah_jadwal():
     # validasi kursi
     while True:
         kursi_tersedia = input("Jumlah Kursi Tersedia: ")
+        if batal_input(kursi_tersedia): return
         if kursi_tersedia.isdigit() and int(kursi_tersedia) > 0:
             kursi_tersedia = int(kursi_tersedia)
             break
@@ -142,10 +148,7 @@ def hapus_jadwal():
         print("\nKetik ID jadwal yang ingin dihapus (contoh: J001,J002)")
         print("Ketik 0 untuk batal.")
         id_input = input("ID yang ingin dihapus: ")
-
-        if id_input == "0":
-            print("Dibatalkan.")
-            return
+        if batal_input(id_input): return
 
         ids_hapus = [id.strip() for id in id_input.split(",")]
         id_ada = [row["id_jadwal"] for row in data]
@@ -182,7 +185,7 @@ def hapus_jadwal():
 
 # fungsi restore jadwal
 def restore_jadwal():
-    print("\n=== PULIHKAN JADWAL YANG DIHAPUS ===")
+    print("\n=== PULIHKAN JADWAL ===")
     data_aktif = csv_handler.baca_csv("jadwal.csv")
     data_hapus = csv_handler.baca_csv("jadwal_terhapus.csv")
 
@@ -192,51 +195,52 @@ def restore_jadwal():
 
     # Tampilkan semua jadwal terhapus
     for i, row in enumerate(data_hapus, 1):
-        print(f"{i}. {row['id_jadwal']} | {row['asal']} → {row['tujuan']} | Dihapus pada: {row.get('dihapus_pada', '-')}")
+        print(f"{i}. {row['id_jadwal']} | {row['asal']} → {row['tujuan']} | "
+              f"Dihapus pada: {row.get('dihapus_pada', '-')}")
 
     while True:
-        pilihan_input = input("\nMasukkan ID jadwal yang ingin dipulihkan (contoh: J001,J002), atau 0 untuk batal: ").strip()
-        if pilihan_input == "0":
-            print("Dibatalkan.")
-            return
+        restore_data = input("\nMasukkan ID jadwal yang ingin dipulihkan (contoh: J001,J002), atau 0 untuk batal: ").strip()
+        if batal_input(restore_data): return
 
-        ids_pilihan = [id.strip() for id in pilihan_input.split(",")]
+        ids_restore = [id.strip() for id in restore_data.split(",")]
         id_aktif = [row["id_jadwal"] for row in data_aktif]
         id_terhapus = [row["id_jadwal"] for row in data_hapus]
 
-        id_valid = [id for id in ids_pilihan if id in id_terhapus and id not in id_aktif]
-        id_invalid = [id for id in ids_pilihan if id not in id_terhapus]
-        id_bentrok = [id for id in ids_pilihan if id in id_aktif]
+        id_valid = [id for id in ids_restore if id in id_terhapus and id not in id_aktif]
+        id_invalid = [id for id in ids_restore if id not in id_terhapus]
+        id_bentrok = [id for id in ids_restore if id in id_aktif]
 
         if not id_valid:
             print("[!] Tidak ada ID yang valid. Coba lagi.")
             if id_bentrok:
                 print(f"↪ ID berikut sudah aktif: {', '.join(id_bentrok)}")
             if id_invalid:
-                print(f"↪ ID berikut tidak ditemukan: {', '.join(id_invalid)}")
-            continue  # Ulangi input
+                print(f"↪ ID berikut tidak ditemukan di data terhapus: {', '.join(id_invalid)}")
+            continue
 
-        # Restore data valid
+        # Data yang akan direstore
         data_restore = []
         for row in data_hapus:
             if row["id_jadwal"] in id_valid:
-                row.pop("status", None)
-                row.pop("dihapus_pada", None)
-                data_restore.append(row)
-                csv_handler.tambah_csv("jadwal.csv", row, row.keys())
+                # Buat row baru dengan field sesuai jadwal.csv
+                row_cleaned = {key: row[key] for key in fieldnames_jadwal}
+                data_restore.append(row_cleaned)
 
-        # Hapus yang direstore dari file terhapus
+        # Tambahkan ke jadwal.csv (sekali banyak)
+        csv_handler.tambah_csv("jadwal.csv", data_restore, fieldnames_jadwal)
+
+        # Hapus dari data_hapus dan tulis ulang file jadwal_terhapus.csv
         data_hapus = [row for row in data_hapus if row["id_jadwal"] not in id_valid]
-        csv_handler.tulis_csv("jadwal_terhapus.csv", data_hapus, data_hapus[0].keys() if data_hapus else data_restore[0].keys())
+        csv_handler.tulis_csv("jadwal_terhapus.csv", data_hapus, fieldnames_terhapus)
 
-        print(f"\n✅ Jadwal berhasil dipulihkan: {', '.join(id_valid)}")
+        print(f"\nJadwal berhasil dipulihkan: {', '.join(id_valid)}")
         if id_bentrok:
             print(f"[!] Tidak dipulihkan karena sudah aktif: {', '.join(id_bentrok)}")
         if id_invalid:
             print(f"[!] Tidak dipulihkan karena tidak ditemukan: {', '.join(id_invalid)}")
 
-        # Tampilkan hasil akhir
-        print("\n=== Jadwal Saat Ini ===")
+        # Tampilkan jadwal terkini
+        print("\n--- Jadwal Saat Ini ---")
         lihat_jadwal()
         break
 
@@ -251,16 +255,16 @@ def tampilkan_jadwal(data):
               f"{row['waktu_berangkat']} - {row['waktu_tiba']} | "
               f"{row['jenis_kereta']} | Harga: ¥{row['harga']} | Kursi: {row['kursi_tersedia']}")
 
-# jadwal buat admin
+# buat liat jadwal
 def lihat_jadwal():
     data = csv_handler.baca_csv("jadwal.csv")
-    print("\n=== DAFTAR JADWAL ===")
+    print("\n=== Daftar Jadwal ===")
     tampilkan_jadwal(data)
 
 
 # jadwal buat user
 def jadwal_user():
-    print("\n=== JADWAL SHINKANSEN UNTUK PENUMPANG ===")
+    print("\n=== JADWAL SHINKANSEN ===")
     print("(Data selalu ter-update berdasarkan perubahan dari Admin)\n")
     data = csv_handler.baca_csv("jadwal.csv")
     data_nonaktif = csv_handler.baca_csv("jadwal_terhapus.csv")
