@@ -4,6 +4,7 @@ from fitur3 import filter
 from fitur4 import penumpang
 from fitur5 import laporan
 from fitur6 import refund
+from utils.akun_user import daftar_akun, login_user, cek_saldo, topup_saldo
 
 ADMIN_PASSWORD = "8948!"
 
@@ -12,9 +13,9 @@ def admin_menu():
     while True:
         print("\n=== MENU ADMIN ===")
         print("1. Manajemen Jadwal")
-        print("2. Laporan Penjualan")
-        print("3. Manajemen Penumpang")
-        print("4. History Refund")
+        print("2. Manajemen Penumpang")
+        print("3. History Refund")
+        print("4. Laporan Penjualan")
         print("0. Kembali ke Halaman Utama")
         pilihan = input("Pilih menu: ")
 
@@ -32,11 +33,11 @@ def admin_menu():
             print("Pilihan tidak valid!")
 
 # fungsi buat jadi user
-def user_menu():
+def user_menu(username):
     while True:
         print("\n=== MENU USER ===")
         print("1. Lihat Jadwal")
-        print("2. Pencarian & Filter Jadwal")
+        print("2. cek saldo")
         print("3. Pesan Tiket")
         print("4. Pembatalan Tiket")
         print("0. Kembali ke Halaman Utama")
@@ -45,7 +46,9 @@ def user_menu():
         if pilihan == '1':
             jadwal.jadwal_user()
         elif pilihan == '2':
-            filter.filter_user()
+            cek_saldo(username)
+            if input("Ingin topup saldo? (y/n): ").lower() == 'y':
+                topup_saldo(username)
         elif pilihan == '3':
             pemesanan.pemesanan_user()
         elif pilihan == '4':
@@ -62,6 +65,7 @@ def login_menu():
         print("\n==== SHINKs APP ====")
         print("1. Masuk sebagai Admin")
         print("2. Masuk sebagai User")
+        print("3. Daftar Akun Baru")
         print("0. Keluar")
         pilihan = input("Pilih: ")
 
@@ -73,8 +77,12 @@ def login_menu():
             else:
                 print("Password salah! Akses ditolak.")
         elif pilihan == '2':
-            print("Login User berhasil!\n")
-            user_menu()
+            username = login_user()
+            if username:
+                print(f"Hallow~ {username}.")
+                user_menu(username)
+        elif pilihan == '3':
+            daftar_akun()
         elif pilihan == '0':
             print("Terima kasih sudah menggunakan SHINKs APP!")
             break

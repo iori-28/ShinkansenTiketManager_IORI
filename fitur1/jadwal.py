@@ -134,6 +134,7 @@ def tambah_jadwal():
 
     csv_handler.tambah_csv("jadwal.csv", data_baru, data_baru.keys())
     print("Jadwal baru berhasil ditambahkan!")
+    lihat_jadwal()
 
 # menu hapus jadwal
 def hapus_jadwal():
