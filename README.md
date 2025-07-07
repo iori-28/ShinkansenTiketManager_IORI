@@ -7,6 +7,7 @@ Tugas Struktur Data membuat aplikasi manajemen
 - `Login.py/` → tampilan sebagai Admin or User (dah bikin fitur buat akun)
 - `main.py` → Menu utama aplikasi CLI
 - `Admin/` → Tampilan Admin jika login sebagai Admin
+  - ada penambahan fitur berupa `konfirmasi.py/` yang dimana digunakan untuk mengkonfirmasi pemesanan-pemesanan user berakun maupun guest
   - `fitur1/` → Jadwal (UDAAAAAH)
   - `fitur4/` → Manajemen Penumpang
   - `fitur5/` → Laporan Penjualan

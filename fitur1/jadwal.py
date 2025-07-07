@@ -281,3 +281,29 @@ def jadwal_user():
             print(f"[Dihapus] {row['id_jadwal']} | {row['asal']} → {row['tujuan']} | "
                 f"{row['waktu_berangkat']} - {row['waktu_tiba']} | {row['jenis_kereta']} | Dihapus pada: {row.get('dihapus_pada','-')}")
 
+def filter_jadwal():
+    print("\n=== FILTER JADWAL ===")
+    data = csv_handler.baca_csv("jadwal.csv")
+    
+    if not data:
+        print("[!] Tidak ada jadwal yang tersedia.")
+        return []
+
+    asal = input("Masukkan stasiun asal (kosongkan untuk semua): ").strip()
+    if batal_input(asal): return []
+    tujuan = input("Masukkan stasiun tujuan (kosongkan untuk semua): ").strip()
+    if batal_input(tujuan): return []
+
+    data_terfilter = [
+        row for row in data 
+        if (asal.lower() in row['asal'].lower() or asal == '') and 
+           (tujuan.lower() in row['tujuan'].lower() or tujuan == '')
+    ]
+
+    if not data_terfilter:
+        print("[!] Tidak ada jadwal yang cocok dengan filter tersebut.")
+        return []
+
+    print("\n=== Hasil Filter Jadwal ===")
+    tampilkan_jadwal(data_terfilter)
+    return data_terfilter

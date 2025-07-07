@@ -1,6 +1,7 @@
 # utils/user_account.py
 import csv
 import os
+from utils.helper import batal_input
 from utils import csv_handler
 from utils.csv_handler import full_path
 
@@ -18,9 +19,7 @@ def daftar_akun():
 
     while True:
         username = input("Username: ").strip()
-        if username == "0":
-            print("[!] Registrasi dibatalkan.")
-            return None
+        if batal_input(username): return
         if username == "":
             print("[!] Username tidak boleh kosong.")
             continue
@@ -31,19 +30,13 @@ def daftar_akun():
             break
 
     password = input("Password: ").strip()
-    if password == "0":
-        print("[!] Registrasi dibatalkan.")
-        return None
+    if batal_input(password): return
 
     nama = input("Nama Lengkap: ").strip()
-    if nama == "0":
-        print("[!] Registrasi dibatalkan.")
-        return None
+    if batal_input(nama): return
 
     email = input("Email: ").strip()
-    if email == "0":
-        print("[!] Registrasi dibatalkan.")
-        return None
+    if batal_input(email): return
 
     user_baru = {
         "username": username,
@@ -103,7 +96,8 @@ def topup_saldo(username):
             print(f"Saldo saat ini: ¥{user['saldo']}")
             while True:
                 jumlah = input("Masukkan jumlah top-up (angka positif): ")
-                if jumlah.isdigit() and int(jumlah) > 0:
+                if batal_input(jumlah): return
+                elif jumlah.isdigit() and int(jumlah) > 0:
                     user["saldo"] = str(int(user["saldo"]) + int(jumlah))
                     csv_handler.tulis_csv("akun_user.csv", users, users[0].keys())
                     print(f"Top-up berhasil! Saldo baru Anda: ¥{user['saldo']}")
