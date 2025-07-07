@@ -1,5 +1,5 @@
 # ShinkansenTiketManager_IORI
-Tugas Struktur Data membuat aplikasi manajemen 
+Final Project for Data Structure (Semester 2)
 
 ## Struktur Folder
 - `database/` → Semua file .csv untuk data
