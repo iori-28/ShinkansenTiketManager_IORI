@@ -1,5 +1,5 @@
 # ShinkansenTiketManager_IORI
-Final Project for Data Structure (Semester 2)
+Project iseng
 
 ## Struktur Folder
 - `database/` → Semua file .csv untuk data
