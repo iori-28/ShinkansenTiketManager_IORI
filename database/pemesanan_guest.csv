@@ -1,2 +1,1 @@
-id_pemesanan,id_penumpang,id_jadwal,jumlah_tiket,total_harga,status,waktu_pesan,waktu_konfirmasi
-fe194365,guest_222925,J006,9,135000,Berhasil,2025-07-07 22:29,
+id_pemesanan,id_penumpang,nama_penumpang,email_penumpang,id_jadwal,jumlah_tiket,total_harga,status,waktu_pesan,waktu_konfirmasi,tipe

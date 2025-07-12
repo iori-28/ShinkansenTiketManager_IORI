@@ -15,7 +15,7 @@ def admin_menu():
         print("1. Manajemen Jadwal")
         print("2. Manajemen Penumpang")
         print("3. Konfirmasi Tiket")
-        print("4. History Refund")
+        print("4. Konfirmasi Refund")
         print("5. Laporan Penjualan")
         print("0. Kembali ke Halaman Utama")
         pilihan = input("Pilih menu: ")

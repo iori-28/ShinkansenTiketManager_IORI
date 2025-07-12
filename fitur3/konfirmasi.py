@@ -1,6 +1,7 @@
 # konfirmasi.py
 from utils import csv_handler
 from utils.helper import batal_input
+from utils.fieldnames import fieldnames_pemesanan
 from datetime import datetime
 
 def konfirmasi_tiket():
@@ -24,7 +25,7 @@ def konfirmasi_tiket():
 
     print("\nDaftar Pemesanan Belum Dikonfirmasi:")
     for i, row in enumerate(semua_pemesanan, 1):
-        print(f"{i}. ID: {row['id_pemesanan']} | Penumpang: {row['id_penumpang']} | Jadwal: {row['id_jadwal']} | Tipe: {row['tipe']}")
+        print(f"{i}. ID: {row['id_pemesanan']} | Penumpang: {row['id_penumpang']} | Nama Penumpang: {row['nama_penumpang']} | Jadwal: {row['id_jadwal']} | Tipe: {row['tipe']}")
 
     pilih = input("\nMasukkan nomor pemesanan yang ingin dikonfirmasi (pisahkan dengan koma), atau 0 untuk batal: ")
     if batal_input(pilih): return
@@ -54,12 +55,10 @@ def konfirmasi_tiket():
             else:
                 baru_data_guest.append(row)
 
-    # Tulis ulang file sumber
-    csv_handler.tulis_csv("pemesanan_akun.csv", baru_data_akun, baru_data_akun[0].keys() if baru_data_akun else data_akun[0].keys())
-    csv_handler.tulis_csv("pemesanan_guest.csv", baru_data_guest, baru_data_guest[0].keys() if baru_data_guest else data_guest[0].keys())
-
-    # Tambahkan ke file terkonfirmasi
-    csv_handler.tambah_csv("pemesanan_terkonfirmasi.csv", data_konfirmasi, data_konfirmasi[0].keys())
+    # Simpan ulang file sumber
+    csv_handler.tulis_csv("pemesanan_akun.csv", baru_data_akun, fieldnames_pemesanan)
+    csv_handler.tulis_csv("pemesanan_guest.csv", baru_data_guest, fieldnames_pemesanan)
+    csv_handler.tambah_csv("pemesanan_terkonfirmasi.csv", data_konfirmasi, fieldnames_pemesanan)
 
     print("\nTiket berhasil dikonfirmasi:")
     for row in data_konfirmasi:
