@@ -1,6 +1,6 @@
 id_jadwal,asal,tujuan,waktu_berangkat,waktu_tiba,jenis_kereta,harga,kursi_tersedia
-J005,Kyoto,Tokyo,2025-12-11 22:00,2025-12-12 04:00,Sakura,3000,180
-J004,Karawang,Kyoto,2025-06-30 10:22,2025-06-30 10:30,SHINKAWOOSH,100000,100
+J005,Kyoto,Tokyo,2025-12-11 22:00,2025-12-12 04:00,Sakura,3000,170
+J004,Karawang,Kyoto,2025-06-30 10:22,2025-06-30 10:30,SHINKAWOOSH,100000,99
 J001,Karawang,Karaba,1997-02-12 08:00,2025-02-12 08:00,Sakura,20000,950
 J002,Osaka,Tokyo,2025-05-24 10:00,2025-05-24 13:00,Hikari,12000,90
 J006,Tokyo,Osaka,2025-02-16 08:00,2025-02-16 10:00,Sakura,15000,65

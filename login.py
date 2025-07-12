@@ -69,7 +69,6 @@ def user_guest_menu():
         print("[!!] Anda dapat melakukan pemesanan tiket tanpa akun, namun tidak dapat mengakses riwayat pemesanan atau refund.")
         print("1. Lihat Jadwal")
         print("2. Pesan Tiket")
-        print("3. Refund Tiket")
         print("0. Kembali ke Halaman Utama")
         pilihan = input("Pilih menu: ")
 
@@ -77,8 +76,6 @@ def user_guest_menu():
             jadwal.jadwal_user()
         elif pilihan == '2':
             pemesanan.pemesanan_user("guest")
-        elif pilihan == '3':
-            refund.refund_user("guest")
         elif pilihan == '0':
             break
         else:
