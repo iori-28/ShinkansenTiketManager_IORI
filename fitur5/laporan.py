@@ -59,9 +59,10 @@ def laporan_admin():
     # Tampilkan laporan harian
     print("\n📊 Ringkasan Laporan Harian:")
     for row in laporan_csv:
-        print(f"{row['tanggal']} | Tiket: {row['total_tiket_terjual']:,} | Pemesanan: {row['total_pemesanan']:,} | Pendapatan: ¥{row['total_pendapatan']:,}")
+        print(f"{row['tanggal']} | Tiket: {row['total_tiket_terjual']:,} | "
+              f"Pemesanan: {row['total_pemesanan']:,} | Pendapatan: ¥{row['total_pendapatan']:,}")
 
-    # Bonus: Hari dengan pendapatan tertinggi
+    # Hari dengan pendapatan tertinggi
     if laporan_csv:
         terbaik = max(laporan_csv, key=lambda x: x["total_pendapatan"])
         print(f"\n💹 Hari Pendapatan Tertinggi: {terbaik['tanggal']} (¥{terbaik['total_pendapatan']:,})")

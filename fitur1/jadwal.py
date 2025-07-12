@@ -333,7 +333,8 @@ def jadwal_user():
         print("\n--- [Jadwal Tidak Aktif / Dihapus oleh Admin] ---")
         for row in data_nonaktif:
             print(f"[Dihapus] {row['id_jadwal']} | {row['asal']} → {row['tujuan']} | "
-                f"{row['waktu_berangkat']} - {row['waktu_tiba']} | {row['jenis_kereta']} | Dihapus pada: {row.get('dihapus_pada','-')}")
+                f"{row['waktu_berangkat']} - {row['waktu_tiba']} | {row['jenis_kereta']} | "
+                f"Dihapus pada: {row.get('dihapus_pada','-')}")
 
 def filter_jadwal():
     print("\n=== FILTER JADWAL ===")

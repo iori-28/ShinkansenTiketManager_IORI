@@ -25,7 +25,8 @@ def konfirmasi_tiket():
 
     print("\nDaftar Pemesanan Belum Dikonfirmasi:")
     for i, row in enumerate(semua_pemesanan, 1):
-        print(f"{i}. ID: {row['id_pemesanan']} | Penumpang: {row['id_penumpang']} | Nama Penumpang: {row['nama_penumpang']} | Jadwal: {row['id_jadwal']} | Tipe: {row['tipe']}")
+        print(f"{i}. ID: {row['id_pemesanan']} | Penumpang: {row['id_penumpang']} | "
+              f"Nama Penumpang: {row['nama_penumpang']} | Jadwal: {row['id_jadwal']} | Tipe: {row['tipe']}")
 
     pilih = input("\nMasukkan nomor pemesanan yang ingin dikonfirmasi (pisahkan dengan koma), atau 0 untuk batal: ")
     if batal_input(pilih): return
@@ -88,7 +89,9 @@ def konfirmasi_refund():
         return
 
     for i, row in enumerate(data, 1):
-        print(f"{i}. ID Refund: {row['id_refund']} | Pemesan: {row.get('nama_penumpang','-')} | Email: {row.get('email_penumpang','-')} | Jumlah: \u00a5{row['jumlah_refund']} | Alasan: {row['alasan']}")
+        print(f"{i}. ID Refund: {row['id_refund']} | Pemesan: {row.get('nama_penumpang','-')} | "
+              f"Email: {row.get('email_penumpang','-')} | Jumlah: \u00a5{row['jumlah_refund']} | "
+              f"Alasan: {row['alasan']}")
 
     pilih = input("Masukkan nomor refund yang akan dikonfirmasi (0 untuk batal): ")
     if batal_input(pilih): return

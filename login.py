@@ -76,7 +76,7 @@ def user_guest_menu():
         if pilihan == '1':
             jadwal.jadwal_user()
         elif pilihan == '2':
-            pemesanan.pemesanan_user("guest")  # tag username sebagai guest
+            pemesanan.pemesanan_user("guest")
         elif pilihan == '3':
             refund.refund_user("guest")
         elif pilihan == '0':

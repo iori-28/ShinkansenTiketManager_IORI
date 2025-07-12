@@ -12,4 +12,5 @@ def penumpang_admin():
 
     print(f"Total Penumpang: {len(data_penumpang)}\n")
     for i, row in enumerate(data_penumpang, 1):
-        print(f"{i}. ID: {row['id_penumpang']} | Nama: {row['nama_penumpang']} | Email: {row['email_penumpang']} | Login: {row['user_SHINKs']}")
+        print(f"{i}. ID: {row['id_penumpang']} | Nama: {row['nama_penumpang']} | "
+              f"Email: {row['email_penumpang']} | Login: {row['user_SHINKs']}")
