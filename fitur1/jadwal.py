@@ -28,6 +28,7 @@ def update_jadwal():
         print("1. Tambah Jadwal")
         print("2. Hapus Jadwal")
         print("3. Pulihkan Jadwal")
+        print("4. Update Kursi")
         print("0. Kembali")
         pilih = input("Pilih menu edit: ")
 
@@ -39,6 +40,8 @@ def update_jadwal():
             hapus_jadwal()
         elif pilih == '3':
             restore_jadwal()
+        elif pilih == '4':
+            update_kursi_jadwal()
         elif pilih == '0':
             break
         else:
@@ -249,6 +252,57 @@ def restore_jadwal():
         print("\n--- Jadwal Saat Ini ---")
         lihat_jadwal()
         break
+
+# fungsi update kursi
+def update_kursi_jadwal():
+    print("\n=== UPDATE KURSI YANG HABIS ===")
+    data = csv_handler.baca_csv("jadwal.csv")
+    if not data:
+        print("[!] Tidak ada jadwal yang tersedia.")
+        return
+
+    # Filter hanya yang kursinya habis
+    kosong = [row for row in data if int(row["kursi_tersedia"]) == 0]
+    if not kosong:
+        print("[✓] Tidak ada jadwal dengan kursi 0.")
+        return
+
+    # Tampilkan daftar kursi 0
+    for i, row in enumerate(kosong, 1):
+        print(f"{i}. ID: {row['id_jadwal']} | {row['asal']} → {row['tujuan']} | "
+              f"{row['waktu_berangkat']} | Kursi Sekarang: {row['kursi_tersedia']}")
+
+    pilih = input("Masukkan nomor jadwal yang ingin diperbarui (0 untuk batal): ").strip()
+    if batal_input(pilih): return
+
+    try:
+        idx = int(pilih) - 1
+        if idx < 0 or idx >= len(kosong):
+            raise ValueError
+    except ValueError:
+        print("[!] Nomor tidak valid.")
+        return
+
+    jadwal_dipilih = kosong[idx]
+    id_target = jadwal_dipilih["id_jadwal"]
+
+    # Input kursi baru
+    while True:
+        kursi_baru = input(f"Masukkan jumlah kursi baru untuk {id_target}: ").strip()
+        if batal_input(kursi_baru): return
+        if kursi_baru.isdigit() and int(kursi_baru) > 0:
+            break
+        else:
+            print("[!] Input tidak valid. Masukkan angka positif.")
+
+    # Update ke data asli
+    for row in data:
+        if row["id_jadwal"] == id_target:
+            row["kursi_tersedia"] = kursi_baru
+            break
+
+    csv_handler.tulis_csv("jadwal.csv", data, data[0].keys())
+    print(f"[✓] Kursi untuk jadwal {id_target} berhasil diperbarui jadi {kursi_baru}.")
 
 # fungsi tampilan jadwal
 def tampilkan_jadwal(data):

@@ -27,7 +27,7 @@ def admin_menu():
         elif pilihan == '3':
             konfirmasi.konfirmasi_tiket()
         elif pilihan == '4':
-            refund.refund_admin()
+            konfirmasi.konfirmasi_refund()
         elif pilihan == '5':
             laporan.laporan_admin()
         elif pilihan == '0':
@@ -39,7 +39,7 @@ def admin_menu():
 def user_login_menu(username):
     while True:
         print(f"\n=== MENU USER ({username}) ===")
-        print("1. Lihat Jadwal")
+        print("1. Lihat Riwayat Pemesanan")
         print("2. Pesan Tiket")
         print("3. Refund Tiket")
         print("4. Cek Saldo")
@@ -48,7 +48,7 @@ def user_login_menu(username):
         pilihan = input("Pilih menu: ")
 
         if pilihan == '1':
-            jadwal.jadwal_user()
+            pemesanan.riwayat_pemesanan_user(username)
         elif pilihan == '2':
             pemesanan.pemesanan_user(username)
         elif pilihan == '3':
@@ -66,6 +66,7 @@ def user_login_menu(username):
 def user_guest_menu():
     while True:
         print("\n=== MENU TANPA AKUN ===")
+        print("[!!] Anda dapat melakukan pemesanan tiket tanpa akun, namun tidak dapat mengakses riwayat pemesanan atau refund.")
         print("1. Lihat Jadwal")
         print("2. Pesan Tiket")
         print("3. Refund Tiket")

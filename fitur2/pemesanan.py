@@ -69,16 +69,6 @@ def pemesanan_user(username=None):
         id_penumpang = f"guest_{datetime.now().strftime('%H%M%S')}"
         tipe_user = "guest"
 
-        # Simpan ke penumpang.csv
-        data_penumpang = {
-            "id_penumpang": id_penumpang,
-            "nama_penumpang": nama_penumpang,
-            "email_penumpang": email_penumpang,
-            "user_SHINKs": "guest",
-            "waktu_pesan": datetime.now().strftime("%Y-%m-%d %H:%M")
-        }
-        csv_handler.tambah_csv("penumpang.csv", data_penumpang, data_penumpang.keys())
-
     # Update kursi
     for j in jadwal:
         if j["id_jadwal"] == id_jadwal:
@@ -105,3 +95,25 @@ def pemesanan_user(username=None):
 
     print(f"\n✅ Pemesanan berhasil!")
     print(f"Penumpang: {nama_penumpang}\nJumlah Tiket: {jumlah_tiket} | Total: ¥{harga_total}")
+
+def riwayat_pemesanan_user(username):
+    print("\n=== RIWAYAT PEMESANAN ANDA ===")
+
+    # Ambil data dari file pemesanan terkonfirmasi dan belum
+    data_terkonfirmasi = csv_handler.baca_csv("pemesanan_terkonfirmasi.csv")
+    data_pemesanan = csv_handler.baca_csv("pemesanan_akun.csv")
+
+    # Gabungkan semua data yang sesuai username
+    semua_data = data_terkonfirmasi + data_pemesanan
+    data_user = [row for row in semua_data if row["id_penumpang"] == username]
+
+    if not data_user:
+        print("[!] Anda belum pernah memesan tiket.")
+        return
+
+    for i, row in enumerate(data_user, 1):
+        status = row.get("status", "Belum Dikonfirmasi")
+        waktu = row.get("waktu_konfirmasi") or "-"
+        print(f"{i}. ID: {row['id_pemesanan']} | Jadwal: {row['id_jadwal']} | "
+              f"Tiket: {row['jumlah_tiket']} | Total: ¥{row['total_harga']} | "
+              f"Status: {status} | Konfirmasi: {waktu}")
