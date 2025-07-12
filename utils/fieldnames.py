@@ -1,3 +1,5 @@
+# utils/fieldnames.py
+
 # buat di jadwal
 fieldnames_jadwal = [
     'id_jadwal','asal','tujuan','waktu_berangkat',

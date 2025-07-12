@@ -1,4 +1,3 @@
-# konfirmasi.py
 from utils import csv_handler
 from utils.helper import batal_input
 from utils.fieldnames import fieldnames_pemesanan

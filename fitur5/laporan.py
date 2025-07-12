@@ -1,4 +1,3 @@
-# fitur5/laporan.py
 from utils import csv_handler
 from datetime import datetime
 from collections import defaultdict
